@@ -19,5 +19,7 @@ func main() {
 	}
 
 	app := fiber.New()
-	app.Listen(":5000")
+
+	listenAddr := os.Getenv("HTTP_LISTEN_ADDRESS")
+	app.Listen(listenAddr)
 }
