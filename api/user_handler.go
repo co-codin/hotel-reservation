@@ -25,5 +25,9 @@ func (h *UserHandler) HandleGetUser(c *fiber.Ctx) error {
 }
 
 func (h *UserHandler) HandleGetUsers(c *fiber.Ctx) error {
-	return c.JSON("test")
+	users, err := h.userStore.GetUsers(c.Context())
+	if err != nil {
+		return err
+	}
+	return c.JSON(users)
 }
