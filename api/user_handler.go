@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/co-codin/hotel-reservation/db"
+	"github.com/co-codin/hotel-reservation/types"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -16,7 +17,23 @@ func NewUserHandler(userStore db.UserStore) *UserHandler {
 }
 
 func (h *UserHandler) HandlePostUser(c *fiber.Ctx) error {
+	var params types.CreateUserParams
+	if err := c.BodyParser(&params); err != nil {
+		return err
+	}
 
+	user, err := types.NewUserFromParams(params)
+	if err != nil {
+		return nil
+	}
+
+	insertedUser, err := h.userStore.InsertUser(c.Context(), user)
+
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(insertedUser)
 }
 
 func (h *UserHandler) HandleGetUser(c *fiber.Ctx) error {
