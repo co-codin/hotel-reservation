@@ -13,6 +13,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+var config = fiber.Config{
+	ErrorHandler: api.ErrorHandler,
+}
+
 func main() {
 	listenAddr := flag.String("listenAddr", ":5000", "The listen address of the API server")
 	flag.Parse()
@@ -25,7 +29,7 @@ func main() {
 
 	userHandler := api.NewUserHandler(db.NewMongoUserStore(client))
 
-	app := fiber.New()
+	app := fiber.New(config)
 
 	apiv1 := app.Group("/api/v1")
 
