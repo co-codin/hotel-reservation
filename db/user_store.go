@@ -22,7 +22,7 @@ type MongoUserStore struct {
 }
 
 func NewMongoUserStore(client *mongo.Client) *MongoUserStore {
-	dbname := os.Getenv("MongoDBNameEnvName")
+	dbname := os.Getenv(MongoDBNameEnvName)
 	return &MongoUserStore{
 		client: client,
 		coll:   client.Database(dbname).Collection(userColl),
