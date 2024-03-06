@@ -1,6 +1,9 @@
 package types
 
 import (
+	"fmt"
+	"regexp"
+
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -19,7 +22,7 @@ type CreateUserParams struct {
 	Password  string `json:"password"`
 }
 
-func (params CreateUserParams) Validate() map[string][string] {
+func (params CreateUserParams) Validate() map[string]string {
 	errors := map[string]string{}
 	if len(params.FirstName) < minFirstNameLen {
 		errors["firstName"] = fmt.Sprintf("firstName length should be at least %d characters", minFirstNameLen)
