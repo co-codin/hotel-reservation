@@ -17,10 +17,11 @@ func NewUserHandler(userStore db.UserStore) *UserHandler {
 }
 
 func (h *UserHandler) HandlePutUser(c *fiber.Ctx) error {
-
+	return nil
 }
 
 func (h *UserHandler) HandleDeleteUser(c *fiber.Ctx) error {
+	userID := c.Params("id")
 
 }
 
